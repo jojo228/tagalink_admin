@@ -11,21 +11,28 @@ if (isset($_POST["type"])) {
         $h = new Demand($car);
 
         $count = $h->carlogin($username, $password, 'admin');
-        if($count == 1)
-        {
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        }
-        else 
-        {
-        if ($count == 1) {
-            $_SESSION['carname'] = $username;
 
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Login Successfully!", "message" => "welcome admin!!", "action" => "dashboard.php"];
+        if($count == 1) {
+            $_SESSION['carname'] = $username;
+            $returnArr = [
+                "ResponseCode" => "200", 
+                "Result" => "true", 
+                "title" => "Login Successfully!", 
+                "message" => "Welcome admin!!", 
+                "action" => "dashboard.php"
+            ];
         } else {
-            $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Please Use Valid Data!!", "message" => "welcome admin!!", "action" => "index.php"];
+            $returnArr = [
+                "ResponseCode" => "200", 
+                "Result" => "false", 
+                "title" => "Please Use Valid Data!!", 
+                "message" => "Invalid login credentials!", 
+                "action" => "index.php"
+            ];
         }
-        }
-    }  
+    }
+}
+
 	elseif ($_POST["type"] == "add_coupon") {
         $expire_date = $_POST["expire_date"];
         $status = $_POST["status"];
