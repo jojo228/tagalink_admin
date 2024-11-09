@@ -1332,7 +1332,7 @@ curl_close($ch);
     }
 
 
-}else {
+else {
     $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
 }
 echo json_encode($returnArr);
