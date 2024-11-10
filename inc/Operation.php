@@ -530,7 +530,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 } 
         }
             
-        } else {
+         else {
             $table = "tbl_coupon";
             $field = [
                 "status" => $status,
