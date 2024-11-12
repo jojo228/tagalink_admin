@@ -11,28 +11,21 @@ if (isset($_POST["type"])) {
         $h = new Demand($car);
 
         $count = $h->carlogin($username, $password, 'admin');
-
-        if($count == 1) {
-            $_SESSION['carname'] = $username;
-            $returnArr = [
-                "ResponseCode" => "200", 
-                "Result" => "true", 
-                "title" => "Login Successfully!", 
-                "message" => "Welcome admin!!", 
-                "action" => "dashboard.php"
-            ];
-        } else {
-            $returnArr = [
-                "ResponseCode" => "200", 
-                "Result" => "false", 
-                "title" => "Please Use Valid Data!!", 
-                "message" => "Invalid login credentials!", 
-                "action" => "index.php"
-            ];
+        if($count == 1)
+        {
+            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
         }
-    }
-}
+        else 
+        {
+        if ($count == 1) {
+            $_SESSION['carname'] = $username;
 
+            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Login Successfully!", "message" => "welcome admin!!", "action" => "dashboard.php"];
+        } else {
+            $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Please Use Valid Data!!", "message" => "welcome admin!!", "action" => "index.php"];
+        }
+        }
+    }  
 	elseif ($_POST["type"] == "add_coupon") {
         $expire_date = $_POST["expire_date"];
         $status = $_POST["status"];
@@ -530,7 +523,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 } 
         }
             
-         else {
+        } else {
             $table = "tbl_coupon";
             $field = [
                 "status" => $status,
@@ -1260,8 +1253,10 @@ if (!empty($_FILES['car_img']['name'][0])) {
 				
 				$checks = $car->query("select uid from tbl_book where id=".$id."")->fetch_assoc(); 
 				$uid = $checks['uid'];
-			$udata = $car->query("select * from tbl_user where id=".$checks['uid']."")->fetch_assoc();
-$name = $udata['name'];
+			    $udata = $car->query("select * from tbl_user where id=".$checks['uid']."")->fetch_assoc();
+                $name = $udata['name'];
+
+            }
 
 	  
 	  
@@ -1299,41 +1294,31 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 $response = curl_exec($ch);
 curl_close($ch);
 
-
-	    if($check == -1)
-        {
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        }
-        else 
-        {
-            if ($check == 1) {
-                $returnArr = [
-                    "ResponseCode" => "200",
-                    "Result" => "true",
-                    "title" => "Book Completed Successfully!!",
-                    "message" => "Book section!",
-                    "action" => "Completed.php",
-                ];
-            } 
-        }
-		}
-
-		else {
-            $returnArr = [
-                "ResponseCode" => "200",
-                "Result" => "false",
-                "title" => "Option Not There!!",
-                "message" => "Error!!",
-                "action" => "dashboard.php",
-            ];
-        }
+if ($check == -1) {
+    $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
+} else {
+    if ($check == 1) {
+        $returnArr = [
+            "ResponseCode" => "200",
+            "Result" => "true",
+            "title" => "Book Completed Successfully!!",
+            "message" => "Book section!",
+            "action" => "Completed.php",
+        ];
     } else {
-        $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
+        $returnArr = [
+            "ResponseCode" => "200",
+            "Result" => "false",
+            "title" => "Option Not There!!",
+            "message" => "Error!!",
+            "action" => "dashboard.php",
+        ];
     }
+}
 
-
-else {
+if (!isset($returnArr)) {
     $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
 }
+
 echo json_encode($returnArr);
 ?>
