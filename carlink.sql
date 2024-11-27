@@ -443,15 +443,22 @@ CREATE TABLE `tbl_setting` (
   `wlimit` float NOT NULL,
   `commission_rate` float NOT NULL,
   `contact_no` text NOT NULL,
-  `api_key` longtext NOT NULL
+  `api_key` longtext NOT NULL,
+  `sms_type` text NOT NULL,
+  `auth_key` text NOT NULL,
+  `otp_id` text NOT NULL,
+  `acc_id` text NOT NULL,
+  `auth_token` text NOT NULL,
+  `twilio_number` text NOT NULL,
+  `otp_auth` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_setting`
 --
 
-INSERT INTO `tbl_setting` (`id`, `webname`, `weblogo`, `timezone`, `currency`, `one_key`, `one_hash`, `scredit`, `rcredit`, `show_dark`, `tax`, `show_add_car`, `wlimit`, `commission_rate`, `contact_no`, `api_key`) VALUES
-(1, 'CarLink', 'images/website/1712638969.png', 'Asia/Kolkata', '$', '****', '****', 15, 10, 0, 5, 1, 50, 10, '+917276465975', 'key');
+INSERT INTO `tbl_setting` (`id`, `webname`, `weblogo`, `timezone`, `currency`, `one_key`, `one_hash`, `scredit`, `rcredit`, `show_dark`, `tax`, `show_add_car`, `wlimit`, `commission_rate`, `contact_no`, `api_key`, `sms_type`, `auth_key`, `otp_id`, `acc_id`, `auth_token`, `twilio_number`, `otp_auth`) VALUES
+(1, 'CarLink', 'images/website/1712638969.png', 'Asia/Kolkata', '$', '****', '****', 15, 10, 0, 5, 1, 50, 10, '+917276465975', 'key','Msg91','*****','*****','*****','*****','*****','No');
 
 -- --------------------------------------------------------
 

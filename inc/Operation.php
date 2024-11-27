@@ -1,7 +1,9 @@
 <?php
 include 'Connection.php';
 include 'Demand.php';
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 if (isset($_POST["type"])) {
    
     if ($_POST['type'] == 'login') {
@@ -11,7 +13,7 @@ if (isset($_POST["type"])) {
         $h = new Demand($car);
 
         $count = $h->carlogin($username, $password, 'admin');
-        if($count == 1)
+        if($count == - 1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
         }
@@ -68,7 +70,7 @@ if (isset($_POST["type"])) {
             ];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
             if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -113,7 +115,7 @@ $imageList = implode('$;', $v);
             $data_values = ["$imageList", "$car_id",'0'];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -180,7 +182,7 @@ if (!empty($_FILES['cat_img']['name'][0])) {
                 $field = [ "img" => $imageList,"car_id"=>$car_id,"uid"=>'0'];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
                 
                  if($check == -1)
         {
@@ -210,7 +212,7 @@ if (!empty($_FILES['cat_img']['name'][0])) {
                 $field = [ "reject_comment" => $c_reason,"is_approve"=>$decision_id];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -336,7 +338,7 @@ $imageList = implode('$;', $v);
             ];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -451,7 +453,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $where =
                     "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
                  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -485,7 +487,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
         $newfilename = round(microtime(true)) . "." . end($temp);
         $target_file = $target_dir . basename($newfilename);
         $url = $url . basename($newfilename);
-        
+        if ($_FILES["coupon_img"]["name"] != "") {
                 move_uploaded_file(
                     $_FILES["coupon_img"]["tmp_name"],
                     $target_file
@@ -505,7 +507,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $where =
                     "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
                   if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -522,8 +524,8 @@ if (!empty($_FILES['car_img']['name'][0])) {
                     ];
                 } 
         }
-            
-        } else {
+	}  
+         else {
             $table = "tbl_coupon";
             $field = [
                 "status" => $status,
@@ -537,7 +539,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             ];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -555,7 +557,8 @@ if (!empty($_FILES['car_img']['name'][0])) {
             } 
         }
         }
-    }elseif ($_POST["type"] == "add_facility") {
+	}
+    elseif ($_POST["type"] == "add_facility") {
         $okey = $_POST["status"];
         $title = $car->real_escape_string($_POST["title"]);
         $target_dir = dirname(dirname(__FILE__)) . "/images/facility/";
@@ -571,7 +574,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $data_values = ["$url", "$okey", "$title"];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -606,7 +609,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $field = ["status" => $okey, "img" => $url, "title" => $title];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -658,7 +661,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
         $data_values = ["$cdesc", "$cstatus", "$ctitle"];
 
         $h = new Demand($car);
-        $check = $h->carinsertdata($field_values, $data_values, $table);
+        $check = trim($h->carinsertdata($field_values, $data_values, $table));
          if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -679,7 +682,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
         $field = ['description' => $cdesc, 'status' => $cstatus, 'title' => $ctitle];
         $where = "where id=" . $id . "";
         $h = new Demand($car);
-        $check = $h->carupdateData($field, $table, $where);
+        $check = trim($h->carupdateData($field, $table, $where));
          if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -709,7 +712,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $field = ['status' => $okey, 'img' => $url, 'attributes' => $attributes, 'subtitle' => $ptitle, 'p_show' => $p_show];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -726,7 +729,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ['status' => $okey, 'attributes' => $attributes, 'subtitle' => $ptitle, 'p_show' => $p_show];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -748,7 +751,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
         $data_values = ["$question", "$answer", "$okey"];
 
         $h = new Demand($car);
-        $check = $h->carinsertdata($field_values, $data_values, $table);
+        $check = trim($h->carinsertdata($field_values, $data_values, $table));
          if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -769,7 +772,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
         $field = ['question' => $question, 'status' => $okey, 'answer' => $answer];
         $where = "where id=" . $id . "";
         $h = new Demand($car);
-        $check = $h->carupdateData($field, $table, $where);
+        $check = trim($h->carupdateData($field, $table, $where));
          if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -790,7 +793,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ['username' => $dname, 'password' => $dsname , 'mobile'=>$mobile];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -815,6 +818,13 @@ if (!empty($_FILES['car_img']['name'][0])) {
         $scredit = $_POST['scredit'];
 		$wlimit = $_POST['wlimit'];
         $rcredit = $_POST['rcredit'];
+		$sms_type = $_POST['sms_type'];
+		$auth_key = $_POST['auth_key'];
+		$otp_id = $_POST['otp_id'];
+		$acc_id = $_POST['acc_id'];
+		$auth_token = $_POST['auth_token'];
+		$twilio_number = $_POST['twilio_number'];
+		$otp_auth = $_POST['otp_auth'];
 
         $target_dir = dirname(dirname(__FILE__)) . "/images/website/";
         $url = "images/website/";
@@ -826,10 +836,16 @@ if (!empty($_FILES['car_img']['name'][0])) {
             
                 move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file);
                 $table = "tbl_setting";
-                $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit,'tax'=>$tax,'contact_no'=>$contact_no,'commission_rate'=>$commission_rate,'wlimit'=>$wlimit];
+                $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit,'tax'=>$tax,'contact_no'=>$contact_no,'commission_rate'=>$commission_rate,'wlimit'=>$wlimit,'otp_auth'=>$otp_auth,
+					'twilio_number'=>$twilio_number,
+					'auth_token'=>$auth_token,
+					'acc_id'=>$acc_id,
+					'otp_id'=>$otp_id,
+					'auth_key'=>$auth_key,
+					'sms_type'=>$sms_type];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -843,10 +859,16 @@ if (!empty($_FILES['car_img']['name'][0])) {
             
         } else {
             $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit,'tax'=>$tax,'contact_no'=>$contact_no,'commission_rate'=>$commission_rate,'wlimit'=>$wlimit];
+            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit,'tax'=>$tax,'contact_no'=>$contact_no,'commission_rate'=>$commission_rate,'wlimit'=>$wlimit,'otp_auth'=>$otp_auth,
+					'twilio_number'=>$twilio_number,
+					'auth_token'=>$auth_token,
+					'acc_id'=>$acc_id,
+					'otp_id'=>$otp_id,
+					'auth_key'=>$auth_key,
+					'sms_type'=>$sms_type];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -869,7 +891,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $data_values = [ "$okey", "$title"];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -903,7 +925,8 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $data_values = ["$url", "$okey"];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
+            
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -937,7 +960,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $data_values = ["$url", "$okey","$title"];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -971,7 +994,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $data_values = ["$url", "$okey","$title"];
 
             $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
+            $check = trim($h->carinsertdata($field_values, $data_values, $table));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -998,7 +1021,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ["status" => $okey, "title" => $title];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1031,7 +1054,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $field = ["status" => $okey, "img" => $url];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1054,7 +1077,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ["status" => $okey];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1089,7 +1112,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $field = ["status" => $okey, "img" => $url,"title"=>$title];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1112,7 +1135,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ["status" => $okey,"title"=>$title];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1147,7 +1170,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $field = ["status" => $okey, "img" => $url,"title"=>$title];
                 $where = "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
  if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1170,7 +1193,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ["status" => $okey,"title"=>$title];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
+            $check = trim($h->carupdateData($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1198,7 +1221,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = "status=" . $status . "";
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData_single($field, $table, $where);
+            $check = trim($h->carupdateData_single($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1221,7 +1244,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = "show_dark=" . $status . "";
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = $h->carupdateData_single($field, $table, $where);
+            $check = trim($h->carupdateData_single($field, $table, $where));
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1249,14 +1272,12 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 $where =
                     "where id=" . $id . "";
                 $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
+                $check = trim($h->carupdateData($field, $table, $where));
 				
 				$checks = $car->query("select uid from tbl_book where id=".$id."")->fetch_assoc(); 
 				$uid = $checks['uid'];
-			    $udata = $car->query("select * from tbl_user where id=".$checks['uid']."")->fetch_assoc();
-                $name = $udata['name'];
-
-            }
+			$udata = $car->query("select * from tbl_user where id=".$checks['uid']."")->fetch_assoc();
+$name = $udata['name'];
 
 	  
 	  
@@ -1294,31 +1315,41 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 $response = curl_exec($ch);
 curl_close($ch);
 
-if ($check == -1) {
-    $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-} else {
-    if ($check == 1) {
-        $returnArr = [
-            "ResponseCode" => "200",
-            "Result" => "true",
-            "title" => "Book Completed Successfully!!",
-            "message" => "Book section!",
-            "action" => "Completed.php",
-        ];
-    } else {
-        $returnArr = [
-            "ResponseCode" => "200",
-            "Result" => "false",
-            "title" => "Option Not There!!",
-            "message" => "Error!!",
-            "action" => "dashboard.php",
-        ];
-    }
-}
 
-if (!isset($returnArr)) {
+	    if($check == -1)
+        {
+            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
+        }
+        else 
+        {
+            if ($check == 1) {
+                $returnArr = [
+                    "ResponseCode" => "200",
+                    "Result" => "true",
+                    "title" => "Book Completed Successfully!!",
+                    "message" => "Book section!",
+                    "action" => "Completed.php",
+                ];
+            } 
+        }
+		}
+
+		else {
+            $returnArr = [
+                "ResponseCode" => "200",
+                "Result" => "false",
+                "title" => "Option Not There!!",
+                "message" => "Error!!",
+                "action" => "dashboard.php",
+            ];
+        }
+    } else {
+        $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
+    }
+
+
+}else {
     $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
 }
-
 echo json_encode($returnArr);
 ?>
