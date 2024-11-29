@@ -5,7 +5,7 @@ header('Content-type: text/json');
 $data = json_decode(file_get_contents('php://input'), true);
 function generate_random()
 {
-	require dirname( dirname(__FILE__) ).'/inc/Connection.php';
+	require dirname( dirname(__FILE__) ).'/inc/Config.php';
 	$six_digit_random_number = mt_rand(100000, 999999);
 	$c_refer = $car->query("select * from tbl_user where code=".$six_digit_random_number."")->num_rows;
 	if($c_refer != 0)

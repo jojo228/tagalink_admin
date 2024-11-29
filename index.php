@@ -57,5 +57,35 @@ else
     </div>
   </body>
 
+  <script>
+    document.querySelector('.theme-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission
+        
+        const formData = new FormData(this);
+        
+        fetch('inc/Operation.php', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.ResponseCode === "200" && data.Result === "true") {
+                alert(data.message);
+                window.location.href = data.action; // Redirect to dashboard
+            } else {
+                alert(data.title + ": " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error.message);
+            alert('An error occurred. Please try again.');
+        });
+    });
+</script>
 
 </html>

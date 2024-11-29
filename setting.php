@@ -135,64 +135,6 @@ require 'inc/Header.php';
                                         </div> 
 										
 										
-										<div class="form-group mb-3 col-4">
-                                            <label><span class="text-danger">*</span> Sms Type</label>
-                                           <select class="form-control" name="sms_type">
-										   <option value="">select sms type</option>
-										   <option value="Msg91" <?php if($set['sms_type'] == 'Msg91'){echo 'selected';}?>>Msg91</option>
-										   <option value="Twilio" <?php if($set['sms_type'] == 'Twilio'){echo 'selected';}?>>Twilio</option>
-										  
-										   </select>
-                                        </div>
-										
-										<div class="form-group mb-3 col-12">
-										<h5 class="h5_set"><i class="fas fa-sms"></i> Msg91 Sms Configurations</h5>
-										</div>
-	                                    
-										<div class="form-group mb-3 col-6">
-                                            <label><span class="text-danger">*</span>Msg91 Auth Key</label>
-                                            <input type="text" class="form-control " placeholder="Msg91 Auth Key"  value="<?php echo $set['auth_key'];?>" name="auth_key" required="">
-                                        </div>
-										
-										<div class="form-group mb-3 col-6">
-                                            <label><span class="text-danger">*</span> Msg91 Otp Template Id</label>
-                                            <input type="text" class="form-control " placeholder="Msg91 Otp Template Id"  value="<?php echo $set['otp_id'];?>" name="otp_id" required="">
-                                        </div>
-										
-										
-										<div class="form-group mb-3 col-12">
-										<h5 class="h5_set"><i class="fas fa-sms"></i> Twilio Sms Configurations </h5>
-										</div>
-										
-										<div class="form-group mb-3 col-4">
-                                            <label><span class="text-danger">*</span>Twilio Account SID</label>
-                                            <input type="text" class="form-control " placeholder="Twilio Account SID"  value="<?php echo $set['acc_id'];?>" name="acc_id" required="">
-                                        </div>
-										
-										<div class="form-group mb-3 col-4">
-                                            <label><span class="text-danger">*</span> Twilio Auth Token</label>
-                                            <input type="text" class="form-control " placeholder="Twilio Auth Token"  value="<?php echo $set['auth_token'];?>" name="auth_token" required="">
-                                        </div>
-										
-										<div class="form-group mb-3 col-4">
-                                            <label><span class="text-danger">*</span> Twilio Phone Number</label>
-                                            <input type="text" class="form-control " placeholder="Twilio Phone Number"  value="<?php echo $set['twilio_number'];?>" name="twilio_number" required="">
-                                        </div>
-										
-										
-										<div class="form-group mb-3 col-12">
-										<h5 class="h5_set"><i class="fa fa-phone"></i> Otp Configurations</h5>
-										</div>
-										
-										<div class="form-group mb-3 col-4">
-                                            <label><span class="text-danger">*</span> Otp Auth In Sign up ? </label>
-                                            <select class="form-control" name="otp_auth">
-										   <option value="">Select Option</option>
-										   <option value="Yes" <?php if($set['otp_auth'] == 'Yes'){echo 'selected';}?>>Yes</option>
-										   <option value="No" <?php if($set['otp_auth'] == 'No'){echo 'selected';}?>>No</option>
-										   
-										   </select>
-                                        </div>
 										
 										
 										
