@@ -57,7 +57,7 @@ else
     </div>
   </body>
 
-  <script>
+  <!-- <script>
     document.querySelector('.theme-form').addEventListener('submit', function(e) {
         e.preventDefault(); // Prevent default form submission
         
@@ -86,6 +86,6 @@ else
             alert('An error occurred. Please try again.');
         });
     });
-</script>
+</script> -->
 
 </html>

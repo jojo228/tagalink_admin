@@ -13,6 +13,6 @@ try {
     
 $set = $car->query("SELECT * FROM `tbl_setting`")->fetch_assoc();
 date_default_timezone_set($set['timezone']);
-// $data_set = $car->query("SELECT * FROM `tbl_car_validate`")->fetch_assoc();
+$data_set = $car->query("SELECT * FROM `tbl_car_validate`")->fetch_assoc();
 $apiKey = $set['api_key'];
 ?>
