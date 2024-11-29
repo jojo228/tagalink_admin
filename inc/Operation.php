@@ -11,11 +11,11 @@ if (isset($_POST["type"])) {
         $h = new Demand($car);
 
         $count = $h->carlogin($username, $password, 'admin');
-        if($count == 1)
-        {
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        }
-        else 
+        // if($count == 1)
+        // {
+        //     $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
+        // }
+        // else 
         {
         if ($count == 1) {
             $_SESSION['carname'] = $username;
