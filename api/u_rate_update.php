@@ -21,7 +21,7 @@ else
 	$table="tbl_book";
   $field = array('total_rate'=>$total_rate,'rate_text'=>$rate_text,'is_rate'=>"1",'review_date'=>$timestamp);
   $where = "where uid=".$uid." and id=".$book_id."";
-$h = new Crud($car);
+$h = new Demand($car);
 	  $check = $h->carupdateData_Api($field,$table,$where);
 	  $returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Rate Updated Successfully!!!");
 	 }

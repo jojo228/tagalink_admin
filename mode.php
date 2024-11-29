@@ -1,5 +1,5 @@
 <?php 
-require 'inc/Config.php';
+require 'inc/Operation.php';
 
 echo $set['show_dark'];
 	
