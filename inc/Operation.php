@@ -2,6 +2,8 @@
 require __DIR__ . '/Connection.php';
 require __DIR__ . '/Demand.php';
 
+header('Content-Type: application/json');
+
 if (isset($_POST["type"])) {
    
     if ($_POST['type'] == 'login') {
@@ -17,7 +19,7 @@ if (isset($_POST["type"])) {
         // }
         // else 
         // {
-        if ($count == 1) {
+        if ($count > 0) {
             $_SESSION['carname'] = $username;
 
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Login Successfully!", "message" => "welcome admin!!", "action" => "dashboard.php"];
