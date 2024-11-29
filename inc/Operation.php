@@ -1,6 +1,6 @@
 <?php
-include 'Connection.php';
-include 'Demand.php';
+require __DIR__ . '/Connection.php';
+require __DIR__ . '/Demand.php';
 
 if (isset($_POST["type"])) {
    
@@ -90,31 +90,31 @@ if (isset($_POST["type"])) {
         
 		$car_id = $_POST['car_id'];
 		$imageList = '';
-$url = 'images/gallery/';
- $v = array();
-   foreach ($_FILES['cat_img']['name'] as $key => $filename) {
-    $tempLocation = $_FILES['cat_img']['tmp_name'][$key];
-    $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
-    $target_path = dirname(dirname(__FILE__)) . '/images/gallery/';
-    $v[] = $url . $newname;
-    move_uploaded_file($tempLocation, $target_path . $newname);
+        $url = 'images/gallery/';
+        $v = array();
+        foreach ($_FILES['cat_img']['name'] as $key => $filename) {
+            $tempLocation = $_FILES['cat_img']['tmp_name'][$key];
+            $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
+            $target_path = dirname(dirname(__FILE__)) . '/images/gallery/';
+            $v[] = $url . $newname;
+            move_uploaded_file($tempLocation, $target_path . $newname);
 
-    $temp = explode(".", $filename);
-    // Check if the file extension is not allowed
-    
-}
-
-$imageList = implode('$;', $v);
-
+            $temp = explode(".", $filename);
+            // Check if the file extension is not allowed
         
-            
-            $table = "tbl_gallery";
-            $field_values = ["img", "car_id","uid"];
-            $data_values = ["$imageList", "$car_id",'0'];
+        }
 
-            $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
-             if($check == -1)
+        $imageList = implode('$;', $v);
+
+    
+        
+        $table = "tbl_gallery";
+        $field_values = ["img", "car_id","uid"];
+        $data_values = ["$imageList", "$car_id",'0'];
+
+        $h = new Demand($car);
+        $check = $h->carinsertdata($field_values, $data_values, $table);
+            if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
         }
@@ -139,50 +139,50 @@ $imageList = implode('$;', $v);
 		$imlist = $_POST['imlist'];
 		
 		$imageList = '';
-$url = 'images/car/';
-if (!empty($_FILES['cat_img']['name'][0])) {
- $v = array();
-   foreach ($_FILES['cat_img']['name'] as $key => $filename) {
-    $tempLocation = $_FILES['cat_img']['tmp_name'][$key];
-    $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
-    $target_path = dirname(dirname(__FILE__)) . '/images/car/';
-    $v[] = $url . $newname;
+        $url = 'images/car/';
+        if (!empty($_FILES['cat_img']['name'][0])) {
+        $v = array();
+        foreach ($_FILES['cat_img']['name'] as $key => $filename) {
+            $tempLocation = $_FILES['cat_img']['tmp_name'][$key];
+            $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
+            $target_path = dirname(dirname(__FILE__)) . '/images/car/';
+            $v[] = $url . $newname;
    
 
-    $temp = explode(".", $filename);
-    // Check if the file extension is not allowed
-    
-	 move_uploaded_file($tempLocation, $target_path . $newname);	
-	
-}
-}
+            $temp = explode(".", $filename);
+            // Check if the file extension is not allowed
+            
+            move_uploaded_file($tempLocation, $target_path . $newname);	
+            
+        }
+    }
 
 		if (empty($_FILES['cat_img']['name'][0]) && $imlist != "0") {
-    // No new image was uploaded, and there are existing images
-    $imageList = $imlist;
+        // No new image was uploaded, and there are existing images
+        $imageList = $imlist;
     
-} else if (empty($_FILES['cat_img']['name'][0]) && $imlist == "0") {
-    // No new image was uploaded, and there are no existing images
-    $imageList = $imlist;
+    } else if (empty($_FILES['cat_img']['name'][0]) && $imlist == "0") {
+        // No new image was uploaded, and there are no existing images
+        $imageList = $imlist;
+        
+    } else if ($imlist == "0") {
+        // New images were uploaded, and there are no existing images
+        $imageList = implode('$;', $v);
+        
+    } else {
+        // New images were uploaded, and there are existing images
+        $imageList = $imlist . '$;' . implode('$;', $v);
     
-} else if ($imlist == "0") {
-    // New images were uploaded, and there are no existing images
-    $imageList = implode('$;', $v);
-    
-} else {
-    // New images were uploaded, and there are existing images
-    $imageList = $imlist . '$;' . implode('$;', $v);
-   
-}
+    }
 
         
-                $table = "tbl_gallery";
-                $field = [ "img" => $imageList,"car_id"=>$car_id,"uid"=>'0'];
-                $where = "where id=" . $id . "";
-                $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
-                
-                 if($check == -1)
+        $table = "tbl_gallery";
+        $field = [ "img" => $imageList,"car_id"=>$car_id,"uid"=>'0'];
+        $where = "where id=" . $id . "";
+        $h = new Demand($car);
+        $check = $h->carupdateData($field, $table, $where);
+        
+            if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
         }
@@ -629,7 +629,7 @@ if (!empty($_FILES['car_img']['name'][0])) {
             $field = ["status" => $okey, "title" => $title];
             $where = "where id=" . $id . "";
             $h = new Demand($bus);
-            $check = $h->busupdateData($field, $table, $where);
+            $check = $h->carupdateData($field, $table, $where);
              if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
@@ -1323,7 +1323,7 @@ curl_close($ch);
     } 
 
 
-}else {
+else {
     $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
 }
 echo json_encode($returnArr);
