@@ -643,6 +643,7 @@ if (isset($_POST["type"])) {
         $twilio_number = $_POST['twilio_number'];
         $auth_key = $_POST['auth_key'];
         $otp_id = $_POST['otp_id'];
+        $show_add_car = $_POST['show_add_car'];
 
         $target_dir = dirname(dirname(__FILE__)) . "/images/website/";
         $url = "images/website/";
@@ -654,7 +655,7 @@ if (isset($_POST["type"])) {
 
             move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file);
             $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'sms_type' => $sms_type, 'otp_auth' => $otp_auth, 'acc_id' => $acc_id, 'auth_token' => $auth_token, 'twilio_number' => $twilio_number, 'auth_key' => $auth_key, 'otp_id' => $otp_id];
+            $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'sms_type' => $sms_type, 'otp_auth' => $otp_auth, 'acc_id' => $acc_id, 'auth_token' => $auth_token, 'twilio_number' => $twilio_number, 'auth_key' => $auth_key, 'otp_id' => $otp_id, 'show_add_car' => $show_add_car];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
             $check = $h->carupdateData($field, $table, $where);
@@ -663,7 +664,7 @@ if (isset($_POST["type"])) {
             }
         } else {
             $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'sms_type' => $sms_type, 'otp_auth' => $otp_auth, 'acc_id' => $acc_id, 'auth_token' => $auth_token, 'twilio_number' => $twilio_number, 'auth_key' => $auth_key, 'otp_id' => $otp_id];
+            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'sms_type' => $sms_type, 'otp_auth' => $otp_auth, 'acc_id' => $acc_id, 'auth_token' => $auth_token, 'twilio_number' => $twilio_number, 'auth_key' => $auth_key, 'otp_id' => $otp_id, 'show_add_car' => $show_add_car];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
             $check = $h->carupdateData($field, $table, $where);
