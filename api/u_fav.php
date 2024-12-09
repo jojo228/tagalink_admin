@@ -18,7 +18,7 @@ else
 	  
 	  $table="tbl_fav";
 $where = "where uid=".$uid." and car_id=".$car_id."";
-$h = new Crud($car);
+$h = new Demand($car);
 	$check = $h->carDeleteData_Api($where,$table);
 	
       $returnArr = array("ResponseCode"=>"200","Result"=>"true","ResponseMsg"=>"Car Successfully Removed In Favourite List !!");
