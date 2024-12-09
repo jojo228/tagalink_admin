@@ -150,7 +150,7 @@ require 'inc/Header.php';
 										
 											<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span> Sms Type</label>
-                                           <select class="form-control" name="sms_type">
+                                           <select class="form-control" value="<?php echo $set['sms_type'];?>" name="sms_type">
 										   <option value="">select sms type</option>
 										   <option value="Msg91" selected="">Msg91</option>
 										   <option value="Twilio">Twilio</option>
@@ -164,12 +164,12 @@ require 'inc/Header.php';
 	                                    
 										<div class="form-group mb-3 col-6">
                                             <label><span class="text-danger">*</span>Msg91 Auth Key</label>
-                                            <input type="text" class="form-control " placeholder="Msg91 Auth Key" value="Carlink_private_Data" name="auth_key" required="">
+                                            <input type="text" class="form-control " placeholder="Msg91 Auth Key" value="<?php echo $set['auth_key'];?>" name="auth_key" required="">
                                         </div>
 										
 										<div class="form-group mb-3 col-6">
                                             <label><span class="text-danger">*</span> Msg91 Otp Template Id</label>
-                                            <input type="text" class="form-control " placeholder="Msg91 Otp Template Id" value="Carlink_private_Data" name="otp_id" required="">
+                                            <input type="text" class="form-control " placeholder="Msg91 Otp Template Id" value="<?php echo $set['otp_id'];?>" name="otp_id" required="">
                                         </div>
 										
 										
@@ -179,17 +179,17 @@ require 'inc/Header.php';
 										
 										<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span>Twilio Account SID</label>
-                                            <input type="text" class="form-control " placeholder="Twilio Account SID" value="Carlink_private_Data" name="acc_id" required="">
+                                            <input type="text" class="form-control " placeholder="Twilio Account SID" value="<?php echo $set['acc_id'];?>" name="acc_id" required="">
                                         </div>
 										
 										<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span> Twilio Auth Token</label>
-                                            <input type="text" class="form-control " placeholder="Twilio Auth Token" value="Carlink_private_Data" name="auth_token" required="">
+                                            <input type="text" class="form-control " placeholder="Twilio Auth Token" value="<?php echo $set['auth_token'];?>" name="auth_token" required="">
                                         </div>
 										
 										<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span> Twilio Phone Number</label>
-                                            <input type="text" class="form-control " placeholder="Twilio Phone Number" value="Carlink_private_Data" name="twilio_number" required="">
+                                            <input type="text" class="form-control " placeholder="Twilio Phone Number" value="<?php echo $set['twilio_number'];?>" name="twilio_number" required="">
                                         </div>
 										
 										
@@ -199,7 +199,7 @@ require 'inc/Header.php';
 										
 										<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span> Otp Auth In Sign up ? </label>
-                                            <select class="form-control" name="otp_auth">
+                                            <select class="form-control" value="<?php echo $set['otp_auth'];?>" name="otp_auth">
 										   <option value="">Select Option</option>
 										   <option value="Yes" selected="">Yes</option>
 										   <option value="No">No</option>
