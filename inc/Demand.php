@@ -57,35 +57,61 @@ class Demand {
     
 
     public function carupdateData_single($field, $table, $where) {
-        $set_clause = "$field[0] = '$field[1]'";
-        $sql = "UPDATE $table SET $set_clause WHERE $where";
+        if (count($field) !== 2) {
+            return false; // Invalid input
+        }
+    
+        $column = $this->car->real_escape_string($field[0]);
+        $value = $this->car->real_escape_string($field[1]);
+    
+        $where_clause = (stripos(trim($where), 'where') === 0) ? $where : "WHERE $where";
+    
+        $sql = "UPDATE $table SET $column = '$value' $where_clause";
         return $this->car->query($sql);
     }
+    
 
     public function carinsertdata_Api_Id($field_values, $data_values, $table) {
-        $sql = "INSERT INTO $table($field_values) VALUES($data_values)";
+        $fields = implode(", ", array_map([$this->car, 'real_escape_string'], $field_values));
+        $values = implode(", ", array_map(function($value) {
+            return "'" . $this->car->real_escape_string($value) . "'";
+        }, $data_values));
+    
+        $sql = "INSERT INTO $table($fields) VALUES($values)";
         if ($this->car->query($sql)) {
             return $this->car->insert_id;
         } else {
             return false;
         }
     }
+    
 
     public function carupdateData_Api($field, $table, $where) {
         $set_clause = [];
         foreach ($field as $key => $value) {
-            $set_clause[] = "$key = '$value'";
+            $escaped_key = $this->car->real_escape_string($key);
+            $escaped_value = $this->car->real_escape_string($value);
+            $set_clause[] = "$escaped_key = '$escaped_value'";
         }
         $set_clause_string = implode(", ", $set_clause);
-
-        $sql = "UPDATE $table SET $set_clause_string WHERE $where";
+    
+        $where_clause = (stripos(trim($where), 'where') === 0) ? $where : "WHERE $where";
+    
+        $sql = "UPDATE $table SET $set_clause_string $where_clause";
         return $this->car->query($sql);
     }
+    
 
     public function carinsertdata_Api($field_values, $data_values, $table) {
-        $sql = "INSERT INTO $table($field_values) VALUES($data_values)";
+        $fields = implode(", ", array_map([$this->car, 'real_escape_string'], $field_values));
+        $values = implode(", ", array_map(function($value) {
+            return "'" . $this->car->real_escape_string($value) . "'";
+        }, $data_values));
+    
+        $sql = "INSERT INTO $table($fields) VALUES($values)";
         return $this->car->query($sql);
     }
+    
 }
 
 ?>
