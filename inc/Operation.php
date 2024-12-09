@@ -10,13 +10,8 @@ if (isset($_POST["type"])) {
 
         $h = new Demand($car);
 
-        $count = $h->carlogin($username, $password, 'admin');
-        // if($count == 1)
-        // {
-        //     $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        // }
-        // else 
-        {
+        $count = $h->carlogin($username, $password, 'admin'); 
+        
         if ($count == 1) {
             $_SESSION['carname'] = $username;
 
@@ -24,7 +19,7 @@ if (isset($_POST["type"])) {
         } else {
             $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Please Use Valid Data!!", "message" => "welcome admin!!", "action" => "index.php"];
         }
-        }
+        
     }  
 	elseif ($_POST["type"] == "add_coupon") {
         $expire_date = $_POST["expire_date"];
@@ -86,7 +81,64 @@ if (isset($_POST["type"])) {
             } 
         }
         
-    }elseif ($_POST["type"] == "add_gal") {
+    }
+    elseif ($_POST["type"] == "edit_coupon") {
+        $expire_date = $_POST["expire_date"];
+        
+        $id = $_POST["id"];
+        $status = $_POST["status"];
+        $coupon_code = $_POST["coupon_code"];
+        $min_amt = $_POST["min_amt"];
+        $coupon_val = $_POST["coupon_val"];
+        $description = $car->real_escape_string($_POST["description"]);
+        $title = $car->real_escape_string($_POST["title"]);
+        $subtitle = $car->real_escape_string($_POST["subtitle"]);
+        $target_dir = dirname(dirname(__FILE__)) . "/images/coupon/";
+        $url = "images/coupon/";
+        $temp = explode(".", $_FILES["coupon_img"]["name"]);
+        $newfilename = round(microtime(true)) . "." . end($temp);
+        $target_file = $target_dir . basename($newfilename);
+        $url = $url . basename($newfilename);
+        
+                move_uploaded_file(
+                    $_FILES["coupon_img"]["tmp_name"],
+                    $target_file
+                );
+                $table = "tbl_coupon";
+                $field = [
+                    "status" => $status,
+                    "coupon_img" => $url,
+                    "title" => $title,
+                    "coupon_code" => $coupon_code,
+                    "min_amt" => $min_amt,
+                    "coupon_val" => $coupon_val,
+                    "description" => $description,
+                    "subtitle" => $subtitle,
+                    "expire_date" => $expire_date,
+                ];
+                $where =
+                    "where id=" . $id . "";
+                $h = new Demand($car);
+                $check = $h->carupdateData($field, $table, $where);
+                  if($check == -1)
+        {
+            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
+        }
+        else 
+        {
+                if ($check == 1) {
+                    $returnArr = [
+                        "ResponseCode" => "200",
+                        "Result" => "true",
+                        "title" => "Coupon Update Successfully!!",
+                        "message" => "Coupon section!",
+                        "action" => "list_coupon.php",
+                    ];
+                } 
+        }
+            
+        }
+        elseif ($_POST["type"] == "add_gal") {
         
 		$car_id = $_POST['car_id'];
 		$imageList = '';
@@ -207,11 +259,11 @@ if (isset($_POST["type"])) {
 		$decision_id = $_POST["decision_id"];
 		$id = $_POST["id"];
 		 $table = "tbl_car";
-                $field = [ "reject_comment" => $c_reason,"is_approve"=>$decision_id];
-                $where = "where id=" . $id . "";
-                $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
- if($check == -1)
+        $field = [ "reject_comment" => $c_reason,"is_approve"=>$decision_id];
+        $where = "where id=" . $id . "";
+        $h = new Demand($car);
+        $check = $h->carupdateData($field, $table, $where);
+        if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
         }
@@ -227,8 +279,8 @@ if (isset($_POST["type"])) {
                     ];
                 } 
         }
-				
-	}
+                
+    }
 	elseif($_POST["type"] == "add_car")
 	{
 		$car_number = $_POST["car_number"];
@@ -259,23 +311,23 @@ if (isset($_POST["type"])) {
 		$total_km = $_POST["total_km"];
 		
 		$imageList = '';
-$url = 'images/car/';
- $v = array();
-   foreach ($_FILES['car_img']['name'] as $key => $filename) {
-    $tempLocation = $_FILES['car_img']['tmp_name'][$key];
-    $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
-    $target_path = dirname(dirname(__FILE__)) . '/images/car/';
-    $v[] = $url . $newname;
-    move_uploaded_file($tempLocation, $target_path . $newname);
+        $url = 'images/car/';
+        $v = array();
+        foreach ($_FILES['car_img']['name'] as $key => $filename) {
+            $tempLocation = $_FILES['car_img']['tmp_name'][$key];
+            $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
+            $target_path = dirname(dirname(__FILE__)) . '/images/car/';
+            $v[] = $url . $newname;
+            move_uploaded_file($tempLocation, $target_path . $newname);
 
-    $temp = explode(".", $filename);
-    // Check if the file extension is not allowed
-    
-}
-
-$imageList = implode('$;', $v);
+            $temp = explode(".", $filename);
+            // Check if the file extension is not allowed
             
-			$table = "tbl_car";
+            }
+
+            $imageList = implode('$;', $v);
+                        
+            $table = "tbl_car";
             $field_values = [
                 "car_number",
                 "car_status",
@@ -286,24 +338,24 @@ $imageList = implode('$;', $v);
                 "driver_name",
                 "driver_mobile",
                 "car_img",
-				"car_gear",
-				"car_facility",
-				"car_type",
-				"car_brand",
-				"car_available",
-				"car_rent_price",
-				"car_rent_price_driver",
-				"engine_hp",
-				"price_type",
-				"fuel_type",
-				"car_desc",
-				"pick_address",
-				"pick_lat",
-				"pick_lng",
-				"total_km",
-				"min_hrs",
-				"post_id",
-				"is_approve"
+                "car_gear",
+                "car_facility",
+                "car_type",
+                "car_brand",
+                "car_available",
+                "car_rent_price",
+                "car_rent_price_driver",
+                "engine_hp",
+                "price_type",
+                "fuel_type",
+                "car_desc",
+                "pick_address",
+                "pick_lat",
+                "pick_lng",
+                "total_km",
+                "min_hrs",
+                "post_id",
+                "is_approve"
             ];
             $data_values = [
                 "$car_number",
@@ -315,29 +367,29 @@ $imageList = implode('$;', $v);
                 "$driver_name",
                 "$driver_mobile",
                 "$imageList",
-				"$car_gear",
-				"$car_facility",
-				"$car_type",
-				"$car_brand",
-				"$car_available",
-				"$car_rent_price",
-				"$car_rent_price_driver",
-				"$engine_hp",
-				"$price_type",
-				"$fuel_type",
-				"$car_desc",
-				"$pick_address",
-				"$pick_lat",
-				"$pick_lng",
-				"$total_km",
-				"$min_hrs",
-				'0',
-				'1'
+                "$car_gear",
+                "$car_facility",
+                "$car_type",
+                "$car_brand",
+                "$car_available",
+                "$car_rent_price",
+                "$car_rent_price_driver",
+                "$engine_hp",
+                "$price_type",
+                "$fuel_type",
+                "$car_desc",
+                "$pick_address",
+                "$pick_lat",
+                "$pick_lng",
+                "$total_km",
+                "$min_hrs",
+                '0',
+                '1'
             ];
 
             $h = new Demand($car);
             $check = $h->carinsertdata($field_values, $data_values, $table);
-             if($check == -1)
+            if($check == -1)
         {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
         }
@@ -384,41 +436,41 @@ $imageList = implode('$;', $v);
 		$imlist = $_POST['imlist'];
 		
 		$imageList = '';
-$url = 'images/car/';
-if (!empty($_FILES['car_img']['name'][0])) {
- $v = array();
-   foreach ($_FILES['car_img']['name'] as $key => $filename) {
-    $tempLocation = $_FILES['car_img']['tmp_name'][$key];
-    $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
-    $target_path = dirname(dirname(__FILE__)) . '/images/car/';
-    $v[] = $url . $newname;
-   
+        $url = 'images/car/';
+        if (!empty($_FILES['car_img']['name'][0])) {
+        $v = array();
+        foreach ($_FILES['car_img']['name'] as $key => $filename) {
+            $tempLocation = $_FILES['car_img']['tmp_name'][$key];
+            $newname = date('YmdHis', time()) . mt_rand() . '.jpg';
+            $target_path = dirname(dirname(__FILE__)) . '/images/car/';
+            $v[] = $url . $newname;
+        
 
-    $temp = explode(".", $filename);
-    // Check if the file extension is not allowed
-   
-	 move_uploaded_file($tempLocation, $target_path . $newname);	
-	
-}
-}
+            $temp = explode(".", $filename);
+            // Check if the file extension is not allowed
+        
+            move_uploaded_file($tempLocation, $target_path . $newname);	
+            
+        }
+        }
 
 		if (empty($_FILES['car_img']['name'][0]) && $imlist != "0") {
-    // No new image was uploaded, and there are existing images
-    $imageList = $imlist;
-    
-} else if (empty($_FILES['car_img']['name'][0]) && $imlist == "0") {
-    // No new image was uploaded, and there are no existing images
-    $imageList = $imlist;
-    
-} else if ($imlist == "0") {
-    // New images were uploaded, and there are no existing images
-    $imageList = implode('$;', $v);
-    
-} else {
-    // New images were uploaded, and there are existing images
-    $imageList = $imlist . '$;' . implode('$;', $v);
-   
-}
+                // No new image was uploaded, and there are existing images
+                $imageList = $imlist;
+                
+            } else if (empty($_FILES['car_img']['name'][0]) && $imlist == "0") {
+                // No new image was uploaded, and there are no existing images
+                $imageList = $imlist;
+                
+            } else if ($imlist == "0") {
+                // New images were uploaded, and there are no existing images
+                $imageList = implode('$;', $v);
+                
+            } else {
+                // New images were uploaded, and there are existing images
+                $imageList = $imlist . '$;' . implode('$;', $v);
+            
+            }
 
 			$table = "tbl_car";
                 $field = [
@@ -468,94 +520,9 @@ if (!empty($_FILES['car_img']['name'][0])) {
                 ];
             } 
         }
-	}	elseif ($_POST["type"] == "edit_coupon") {
-        $expire_date = $_POST["expire_date"];
-        
-        $id = $_POST["id"];
-        $status = $_POST["status"];
-        $coupon_code = $_POST["coupon_code"];
-        $min_amt = $_POST["min_amt"];
-        $coupon_val = $_POST["coupon_val"];
-        $description = $car->real_escape_string($_POST["description"]);
-        $title = $car->real_escape_string($_POST["title"]);
-        $subtitle = $car->real_escape_string($_POST["subtitle"]);
-        $target_dir = dirname(dirname(__FILE__)) . "/images/coupon/";
-        $url = "images/coupon/";
-        $temp = explode(".", $_FILES["coupon_img"]["name"]);
-        $newfilename = round(microtime(true)) . "." . end($temp);
-        $target_file = $target_dir . basename($newfilename);
-        $url = $url . basename($newfilename);
-        
-                move_uploaded_file(
-                    $_FILES["coupon_img"]["tmp_name"],
-                    $target_file
-                );
-                $table = "tbl_coupon";
-                $field = [
-                    "status" => $status,
-                    "coupon_img" => $url,
-                    "title" => $title,
-                    "coupon_code" => $coupon_code,
-                    "min_amt" => $min_amt,
-                    "coupon_val" => $coupon_val,
-                    "description" => $description,
-                    "subtitle" => $subtitle,
-                    "expire_date" => $expire_date,
-                ];
-                $where =
-                    "where id=" . $id . "";
-                $h = new Demand($car);
-                $check = $h->carupdateData($field, $table, $where);
-                  if($check == -1)
-        {
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        }
-        else 
-        {
-                if ($check == 1) {
-                    $returnArr = [
-                        "ResponseCode" => "200",
-                        "Result" => "true",
-                        "title" => "Coupon Update Successfully!!",
-                        "message" => "Coupon section!",
-                        "action" => "list_coupon.php",
-                    ];
-                } 
-        }
-            
-        } else {
-            $table = "tbl_coupon";
-            $field = [
-                "status" => $status,
-                "title" => $title,
-                "coupon_code" => $coupon_code,
-                "min_amt" => $min_amt,
-                "coupon_val" => $coupon_val,
-                "description" => $description,
-                "subtitle" => $subtitle,
-                "expire_date" => $expire_date,
-            ];
-            $where = "where id=" . $id . "";
-            $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
-             if($check == -1)
-        {
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        }
-        else 
-        {
-            if ($check == 1) {
-                $returnArr = [
-                    "ResponseCode" => "200",
-                    "Result" => "true",
-                    "title" => "Coupon Update Successfully!!",
-                    "message" => "Coupon section!",
-                    "action" => "list_coupon.php",
-                ];
-            } 
-        }
-        }
-    }elseif ($_POST["type"] == "add_facility") {
+	}	 
+    
+    elseif ($_POST["type"] == "add_facility") {
         $okey = $_POST["status"];
         $title = $car->real_escape_string($_POST["title"]);
         $target_dir = dirname(dirname(__FILE__)) . "/images/facility/";
@@ -1247,43 +1214,43 @@ if (!empty($_FILES['car_img']['name'][0])) {
 				$checks = $car->query("select uid from tbl_book where id=".$id."")->fetch_assoc(); 
 				$uid = $checks['uid'];
 			$udata = $car->query("select * from tbl_user where id=".$checks['uid']."")->fetch_assoc();
-$name = $udata['name'];
+        $name = $udata['name'];
 
-	  
-	  
-	   
-$content = array(
-       "en" => $name.', Your  Book #'.$id.' Has Been Completed.'
-   );
-$heading = array(
-   "en" => "Book Completed!!"
-);
+            
+            
+            
+        $content = array(
+            "en" => $name.', Your  Book #'.$id.' Has Been Completed.'
+        );
+        $heading = array(
+        "en" => "Book Completed!!"
+        );
 
-$fields = array(
-'app_id' => $set['one_key'],
-'included_segments' =>  array("Active Users"),
-'data' => array("order_id" =>$id),
-'filters' => array(array('field' => 'tag', 'key' => 'user_id', 'relation' => '=', 'value' => $checks['uid'])),
-'contents' => $content,
-'headings' => $heading
-);
+        $fields = array(
+        'app_id' => $set['one_key'],
+        'included_segments' =>  array("Active Users"),
+        'data' => array("order_id" =>$id),
+        'filters' => array(array('field' => 'tag', 'key' => 'user_id', 'relation' => '=', 'value' => $checks['uid'])),
+        'contents' => $content,
+        'headings' => $heading
+        );
 
-$fields = json_encode($fields);
+        $fields = json_encode($fields);
 
- 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
-curl_setopt($ch, CURLOPT_HTTPHEADER, 
-array('Content-Type: application/json; charset=utf-8',
-'Authorization: Basic '.$set['one_hash']));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-curl_setopt($ch, CURLOPT_HEADER, FALSE);
-curl_setopt($ch, CURLOPT_POST, TRUE);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
- 
-$response = curl_exec($ch);
-curl_close($ch);
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, 
+        array('Content-Type: application/json; charset=utf-8',
+        'Authorization: Basic '.$set['one_hash']));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        
+        $response = curl_exec($ch);
+        curl_close($ch);
 
 
 	    if($check == -1)
@@ -1316,8 +1283,9 @@ curl_close($ch);
     } 
 
 
-else {
-    $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
+    else {
+        $returnArr = ["ResponseCode" => "200", "Result" => "false", "title" => "Don't Try Extra Function!", "message" => "welcome admin!!", "action" => "dashboard.php"];
+    }
 }
 echo json_encode($returnArr);
 ?>
