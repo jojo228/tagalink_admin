@@ -27,15 +27,34 @@ class Demand {
     }
 
     public function carupdateData($field, $table, $where) {
+        // Validate inputs
+        if (empty($field) || empty($table) || empty($where)) {
+            return false; // or throw an exception
+        }
+    
         $set_clause = [];
         foreach ($field as $key => $value) {
-            $set_clause[] = "$key = '$value'";
+            if ($value !== null) { // Only include non-null values
+                $escaped_key = $this->car->real_escape_string($key);
+                $escaped_value = $this->car->real_escape_string($value);
+                $set_clause[] = "$escaped_key = '$escaped_value'";
+            }
         }
+    
+        if (empty($set_clause)) {
+            return false; // No fields to update
+        }
+    
         $set_clause_string = implode(", ", $set_clause);
-
-        $sql = "UPDATE $table SET $set_clause_string WHERE $where";
+    
+        // Ensure WHERE clause starts with "WHERE"
+        $where_clause = (stripos(trim($where), 'where') === 0) ? $where : "WHERE $where";
+    
+        $sql = "UPDATE $table SET $set_clause_string $where_clause";
+    
         return $this->car->query($sql);
     }
+    
 
     public function carupdateData_single($field, $table, $where) {
         $set_clause = "$field[0] = '$field[1]'";
