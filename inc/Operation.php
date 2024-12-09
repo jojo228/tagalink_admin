@@ -860,32 +860,25 @@ if (!empty($_FILES['car_img']['name'][0])) {
         }
     } elseif ($_POST["type"] == "add_city") {
         $okey = $_POST["status"];
-        $title = $car->real_escape_string($_POST["title"]);
-        
-        
-            
-            $table = "tbl_city";
-            $field_values = [ "status", "title"];
-            $data_values = [ "$okey", "$title"];
+        $title = $car->real_escape_string($_POST["title"]);            
+        $table = "tbl_city";
+        $field_values = [ "status", "title"];
+        $data_values = [ "$okey", "$title"];
 
-            $h = new Demand($car);
-            $check = $h->carinsertdata($field_values, $data_values, $table);
-             if($check == -1)
-        {
-            $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Please Activate Domain First!!!", "message" => "Validation!!", "action" => "validate_domain.php"];
-        }
-        else 
-        {
-            if ($check == 1) {
-                $returnArr = [
-                    "ResponseCode" => "200",
-                    "Result" => "true",
-                    "title" => "City Add Successfully!!",
-                    "message" => "City section!",
-                    "action" => "list_city.php",
-                ];
-            } 
-        }
+        $h = new Demand($car);
+        $check = $h->carinsertdata($field_values, $data_values, $table);
+            
+    
+        if ($check == 1) {
+            $returnArr = [
+                "ResponseCode" => "200",
+                "Result" => "true",
+                "title" => "City Add Successfully!!",
+                "message" => "City section!",
+                "action" => "list_city.php",
+            ];
+        } 
+        
         
     } elseif ($_POST["type"] == "add_banner") {
         $okey = $_POST["status"];
