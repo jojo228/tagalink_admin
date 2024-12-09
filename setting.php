@@ -150,10 +150,10 @@ require 'inc/Header.php';
 										
 											<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span> Sms Type</label>
-                                           <select class="form-control" value="<?php echo $set['sms_type'];?>" name="sms_type">
+                                           <select class="form-control" name="sms_type">
 										   <option value="">select sms type</option>
-										   <option value="Msg91" selected="">Msg91</option>
-										   <option value="Twilio">Twilio</option>
+										   <option value="Msg91" <?php if($set['sms_type'] == 'Msg91'){echo 'selected';}?>>Msg91</option>
+										   <option value="Twilio" <?php if($set['sms_type'] == 'Twilio'){echo 'selected';}?>>Twilio</option>
 										  
 										   </select>
                                         </div>
@@ -199,10 +199,10 @@ require 'inc/Header.php';
 										
 										<div class="form-group mb-3 col-4">
                                             <label><span class="text-danger">*</span> Otp Auth In Sign up ? </label>
-                                            <select class="form-control" value="<?php echo $set['otp_auth'];?>" name="otp_auth">
+                                            <select class="form-control" name="otp_auth">
 										   <option value="">Select Option</option>
-										   <option value="Yes" selected="">Yes</option>
-										   <option value="No">No</option>
+										   <option value="Yes" <?php if($set['otp_auth'] == 'Yes'){echo 'selected';}?>>Yes</option>
+										   <option value="No" <?php if($set['otp_auth'] == 'No'){echo 'selected';}?>>No</option>
 										   
 										   </select>
                                         </div>
