@@ -119,21 +119,93 @@ require 'inc/Header.php';
                                             <input type="number" step="0.01" min="1" max="100" class="form-control numberonly" placeholder="Enter Tax"  value="<?php echo $set['tax'];?>" name="tax" required="">
                                         </div> 
 										
-										<div class="form-group mb-3 col-4">
+										<div class="form-group mb-3 col-3">
                                             <label><span class="text-danger">*</span> Withdraw Limit</label>
                                             <input type="number" step="0.01" min="1"  class="form-control" placeholder="Enter Limit"  value="<?php echo $set['wlimit'];?>" name="wlimit" required="">
                                         </div> 
 										
-										<div class="form-group mb-3 col-4">
+										<div class="form-group mb-3 col-3">
                                             <label><span class="text-danger">*</span> Commission Rate</label>
                                             <input type="number" step="0.01" min="1"   max="100" class="form-control" placeholder="Enter Commission Rate"  value="<?php echo $set['commission_rate'];?>" name="commission_rate" required="">
                                         </div> 
 										
-										<div class="form-group mb-3 col-4">
+										<div class="form-group mb-3 col-3">
                                             <label><span class="text-danger">*</span> Contact Number</label>
                                             <input type="text" step="0.01" min="1"  class="form-control" placeholder="Enter Contact Number"  value="<?php echo $set['contact_no'];?>" name="contact_no" required="">
                                         </div> 
 										
+
+                                  
+                    
+                                        <div class="form-group mb-3 col-3">
+                                            <label><span class="text-danger">*</span> Show Car Add Button ?</label>
+                                           <select class="form-control">
+                                               <option value="">Select A Option</option>
+                                               <option value="1" selected="">Yes</option>
+                                               <option value="0">No</option>
+                                               
+                                           </select>
+                                        </div> 
+										
+										
+											<div class="form-group mb-3 col-4">
+                                            <label><span class="text-danger">*</span> Sms Type</label>
+                                           <select class="form-control" name="sms_type">
+										   <option value="">select sms type</option>
+										   <option value="Msg91" selected="">Msg91</option>
+										   <option value="Twilio">Twilio</option>
+										  
+										   </select>
+                                        </div>
+										
+										<div class="form-group mb-3 col-12">
+										<h5 class="h5_set"><i class="fas fa-sms"></i> Msg91 Sms Configurations</h5>
+										</div>
+	                                    
+										<div class="form-group mb-3 col-6">
+                                            <label><span class="text-danger">*</span>Msg91 Auth Key</label>
+                                            <input type="text" class="form-control " placeholder="Msg91 Auth Key" value="Carlink_private_Data" name="auth_key" required="">
+                                        </div>
+										
+										<div class="form-group mb-3 col-6">
+                                            <label><span class="text-danger">*</span> Msg91 Otp Template Id</label>
+                                            <input type="text" class="form-control " placeholder="Msg91 Otp Template Id" value="Carlink_private_Data" name="otp_id" required="">
+                                        </div>
+										
+										
+										<div class="form-group mb-3 col-12">
+										<h5 class="h5_set"><i class="fa fa-sms"></i> Twilio Sms Configurations </h5>
+										</div>
+										
+										<div class="form-group mb-3 col-4">
+                                            <label><span class="text-danger">*</span>Twilio Account SID</label>
+                                            <input type="text" class="form-control " placeholder="Twilio Account SID" value="Carlink_private_Data" name="acc_id" required="">
+                                        </div>
+										
+										<div class="form-group mb-3 col-4">
+                                            <label><span class="text-danger">*</span> Twilio Auth Token</label>
+                                            <input type="text" class="form-control " placeholder="Twilio Auth Token" value="Carlink_private_Data" name="auth_token" required="">
+                                        </div>
+										
+										<div class="form-group mb-3 col-4">
+                                            <label><span class="text-danger">*</span> Twilio Phone Number</label>
+                                            <input type="text" class="form-control " placeholder="Twilio Phone Number" value="Carlink_private_Data" name="twilio_number" required="">
+                                        </div>
+										
+										
+										<div class="form-group mb-3 col-12">
+										<h5 class="h5_set"><i class="fa fa-phone"></i> Otp Configurations</h5>
+										</div>
+										
+										<div class="form-group mb-3 col-4">
+                                            <label><span class="text-danger">*</span> Otp Auth In Sign up ? </label>
+                                            <select class="form-control" name="otp_auth">
+										   <option value="">Select Option</option>
+										   <option value="Yes" selected="">Yes</option>
+										   <option value="No">No</option>
+										   
+										   </select>
+                                        </div>
 										
 										
 										
