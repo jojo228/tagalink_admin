@@ -681,14 +681,14 @@ if (isset($_POST["type"])) {
             'scredit' => $scredit,
             'rcredit' => $rcredit,
             'wlimit' => $wlimit,
-            'sms_type' => $sms_type,
-            'otp_auth' => $otp_auth,
-            'acc_id' => $acc_id,
-            'auth_token' => $auth_token,
-            'twilio_number' => $twilio_number,
-            'auth_key' => $auth_key,
-            'otp_id' => $otp_id,
-            'show_add_car' => $show_add_car,
+            // 'sms_type' => $sms_type,
+            // 'otp_auth' => $otp_auth,
+            // 'acc_id' => $acc_id,
+            // 'auth_token' => $auth_token,
+            // 'twilio_number' => $twilio_number,
+            // 'auth_key' => $auth_key,
+            // 'otp_id' => $otp_id,
+            // 'show_add_car' => $show_add_car,
         ];
     
         // Add logo if uploaded
