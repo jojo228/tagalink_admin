@@ -624,56 +624,104 @@ if (isset($_POST["type"])) {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Profile Update Successfully!!", "message" => "Profile  section!", "action" => "profile.php"];
         }
     } elseif ($_POST['type'] == 'edit_setting') {
+        // Validate and sanitize inputs
         $webname = mysqli_real_escape_string($car, $_POST['webname']);
-        $timezone = $_POST['timezone'];
-        $currency = $_POST['currency'];
-        $id = $_POST['id'];
-        $tax = $_POST['tax'];
-        $contact_no = $_POST['contact_no'];
-        $one_key = $_POST['one_key'];
-        $one_hash = $_POST['one_hash'];
-        $commission_rate = $_POST['commission_rate'];
-        $scredit = $_POST['scredit'];
-        $wlimit = $_POST['wlimit'];
-        $rcredit = $_POST['rcredit'];
-        $sms_type = $_POST['sms_type'];
-        $otp_auth = $_POST['otp_auth'];
-        $acc_id = $_POST['acc_id'];
-        $auth_token = $_POST['auth_token'];
-        $twilio_number = $_POST['twilio_number'];
-        $auth_key = $_POST['auth_key'];
-        $otp_id = $_POST['otp_id'];
-        $show_add_car = $_POST['show_add_car'];
-
-        $target_dir = dirname(dirname(__FILE__)) . "/images/website/";
-        $url = "images/website/";
-        $temp = explode(".", $_FILES["weblogo"]["name"]);
-        $newfilename = round(microtime(true)) . '.' . end($temp);
-        $target_file = $target_dir . basename($newfilename);
-        $url = $url . basename($newfilename);
-        if ($_FILES["weblogo"]["name"] != '') {
-
-            move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file);
-            $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'show_add_car' => $show_add_car];
-            $where = "where id=" . $id . "";
-            $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
-            if ($check == 1) {
-                $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Setting Update Successfully!!", "message" => "Setting section!", "action" => "setting.php"];
-            }
-        } else {
-            $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit,];
-            $where = "where id=" . $id . "";
-            $h = new Demand($car);
-            $check = $h->carupdateData($field, $table, $where);
-
-            if ($check == 1) {
-                $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Setting Update Successfully!!", "message" => "Offer section!", "action" => "setting.php"];
+        $timezone = mysqli_real_escape_string($car, $_POST['timezone']);
+        $currency = mysqli_real_escape_string($car, $_POST['currency']);
+        $tax = mysqli_real_escape_string($car, $_POST['tax']);
+        $contact_no = mysqli_real_escape_string($car, $_POST['contact_no']);
+        $one_key = mysqli_real_escape_string($car, $_POST['one_key']);
+        $one_hash = mysqli_real_escape_string($car, $_POST['one_hash']);
+        $commission_rate = mysqli_real_escape_string($car, $_POST['commission_rate']);
+        $scredit = intval($_POST['scredit']);
+        $rcredit = intval($_POST['rcredit']);
+        $wlimit = intval($_POST['wlimit']);
+        $id = intval($_POST['id']);
+        $sms_type = mysqli_real_escape_string($car, $_POST['sms_type']);
+        $otp_auth = mysqli_real_escape_string($car, $_POST['otp_auth']);
+        $acc_id = mysqli_real_escape_string($car, $_POST['acc_id']);
+        $auth_token = mysqli_real_escape_string($car, $_POST['auth_token']);
+        $twilio_number = mysqli_real_escape_string($car, $_POST['twilio_number']);
+        $auth_key = mysqli_real_escape_string($car, $_POST['auth_key']);
+        $otp_id = mysqli_real_escape_string($car, $_POST['otp_id']);
+        $show_add_car = mysqli_real_escape_string($car, $_POST['show_add_car']);
+    
+        // Handle file upload
+        $url = "";
+        if (!empty($_FILES["weblogo"]["name"])) {
+            $target_dir = dirname(dirname(__FILE__)) . "/images/website/";
+            $url = "images/website/";
+            $temp = explode(".", $_FILES["weblogo"]["name"]);
+            $newfilename = round(microtime(true)) . '.' . end($temp);
+            $target_file = $target_dir . basename($newfilename);
+            $url = $url . basename($newfilename);
+    
+            if (!move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file)) {
+                $returnArr = [
+                    "ResponseCode" => "500",
+                    "Result" => "false",
+                    "title" => "File Upload Failed!",
+                    "message" => "Unable to upload the file. Please check directory permissions.",
+                ];
+                echo json_encode($returnArr);
+                exit;
             }
         }
-    } elseif ($_POST["type"] == "add_city") {
+    
+        // Build field array
+        $field = [
+            'timezone' => $timezone,
+            'webname' => $webname,
+            'currency' => $currency,
+            'tax' => $tax,
+            'contact_no' => $contact_no,
+            'one_key' => $one_key,
+            'one_hash' => $one_hash,
+            'commission_rate' => $commission_rate,
+            'scredit' => $scredit,
+            'rcredit' => $rcredit,
+            'wlimit' => $wlimit,
+            'sms_type' => $sms_type,
+            'otp_auth' => $otp_auth,
+            'acc_id' => $acc_id,
+            'auth_token' => $auth_token,
+            'twilio_number' => $twilio_number,
+            'auth_key' => $auth_key,
+            'otp_id' => $otp_id,
+            'show_add_car' => $show_add_car,
+        ];
+    
+        // Add logo if uploaded
+        if (!empty($url)) {
+            $field['weblogo'] = $url;
+        }
+    
+        // Update database
+        $table = "tbl_setting";
+        $where = "id = $id";
+        $h = new Demand($car);
+        $check = $h->carupdateData($field, $table, $where);
+    
+        if ($check) {
+            $returnArr = [
+                "ResponseCode" => "200",
+                "Result" => "true",
+                "title" => "Setting Updated Successfully!",
+                "message" => "Settings have been updated.",
+                "action" => "setting.php",
+            ];
+        } else {
+            $returnArr = [
+                "ResponseCode" => "500",
+                "Result" => "false",
+                "title" => "Update Failed!",
+                "message" => "Failed to update settings. Please try again.",
+            ];
+        }
+    
+        echo json_encode($returnArr);
+    }
+     elseif ($_POST["type"] == "add_city") {
         $okey = $_POST["status"];
         $title = $car->real_escape_string($_POST["title"]);
         $table = "tbl_city";
