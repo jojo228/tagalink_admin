@@ -634,15 +634,16 @@ if (isset($_POST["type"])) {
         $one_hash = $_POST['one_hash'];
         $commission_rate = $_POST['commission_rate'];
         $scredit = $_POST['scredit'];
-		$wlimit = $_POST['wlimit'];
+        $wlimit = $_POST['wlimit'];
         $rcredit = $_POST['rcredit'];
-		$sms_type = $_POST['sms_type'];
-		$auth_key = $_POST['auth_key'];
-		$otp_id = $_POST['otp_id'];
-		$acc_id = $_POST['acc_id'];
-		$auth_token = $_POST['auth_token'];
-		$twilio_number = $_POST['twilio_number'];
-		$otp_auth = $_POST['otp_auth'];
+        $sms_type = $_POST['sms_type'];
+        $otp_auth = $_POST['otp_auth'];
+        $acc_id = $_POST['acc_id'];
+        $auth_token = $_POST['auth_token'];
+        $twilio_number = $_POST['twilio_number'];
+        $auth_key = $_POST['auth_key'];
+        $otp_id = $_POST['otp_id'];
+        $show_add_car = $_POST['show_add_car'];
 
         $target_dir = dirname(dirname(__FILE__)) . "/images/website/";
         $url = "images/website/";
@@ -651,42 +652,26 @@ if (isset($_POST["type"])) {
         $target_file = $target_dir . basename($newfilename);
         $url = $url . basename($newfilename);
         if ($_FILES["weblogo"]["name"] != '') {
-            
-                move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file);
-                $table = "tbl_setting";
-                $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit,'tax'=>$tax,'contact_no'=>$contact_no,'commission_rate'=>$commission_rate,'wlimit'=>$wlimit,'otp_auth'=>$otp_auth,
-					'twilio_number'=>$twilio_number,
-					'auth_token'=>$auth_token,
-					'acc_id'=>$acc_id,
-					'otp_id'=>$otp_id,
-					'auth_key'=>$auth_key,
-					'sms_type'=>$sms_type];
-                $where = "where id=" . $id . "";
-                $h = new Demand($car);
-                $check = trim($h->carupdateData($field, $table, $where));
- 
-                if ($check == 1) {
-                    $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Setting Update Successfully!!", "message" => "Setting section!", "action" => "setting.php"];
-                
-            }
-            
-        } else {
+
+            move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file);
             $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit,'tax'=>$tax,'contact_no'=>$contact_no,'commission_rate'=>$commission_rate,'wlimit'=>$wlimit,'otp_auth'=>$otp_auth,
-					'twilio_number'=>$twilio_number,
-					'auth_token'=>$auth_token,
-					'acc_id'=>$acc_id,
-					'otp_id'=>$otp_id,
-					'auth_key'=>$auth_key,
-					'sms_type'=>$sms_type];
+            $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'show_add_car' => $show_add_car];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
-            $check = trim($h->carupdateData($field, $table, $where));
-             
+            $check = $h->carupdateData($field, $table, $where);
+            if ($check == 1) {
+                $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Setting Update Successfully!!", "message" => "Setting section!", "action" => "setting.php"];
+            }
+        } else {
+            $table = "tbl_setting";
+            $field = ['timezone' => $timezone, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit,];
+            $where = "where id=" . $id . "";
+            $h = new Demand($car);
+            $check = $h->carupdateData($field, $table, $where);
+
             if ($check == 1) {
                 $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Setting Update Successfully!!", "message" => "Offer section!", "action" => "setting.php"];
-             
-        }
+            }
         }
     } elseif ($_POST["type"] == "add_city") {
         $okey = $_POST["status"];
