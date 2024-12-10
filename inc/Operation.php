@@ -637,14 +637,14 @@ if (isset($_POST["type"])) {
         $rcredit = intval($_POST['rcredit']);
         $wlimit = intval($_POST['wlimit']);
         $id = intval($_POST['id']);
-        $sms_type = mysqli_real_escape_string($car, $_POST['sms_type']);
-        $otp_auth = mysqli_real_escape_string($car, $_POST['otp_auth']);
-        $acc_id = mysqli_real_escape_string($car, $_POST['acc_id']);
-        $auth_token = mysqli_real_escape_string($car, $_POST['auth_token']);
-        $twilio_number = mysqli_real_escape_string($car, $_POST['twilio_number']);
-        $auth_key = mysqli_real_escape_string($car, $_POST['auth_key']);
-        $otp_id = mysqli_real_escape_string($car, $_POST['otp_id']);
-        $show_add_car = mysqli_real_escape_string($car, $_POST['show_add_car']);
+        // $sms_type = mysqli_real_escape_string($car, $_POST['sms_type']);
+        // $otp_auth = mysqli_real_escape_string($car, $_POST['otp_auth']);
+        // $acc_id = mysqli_real_escape_string($car, $_POST['acc_id']);
+        // $auth_token = mysqli_real_escape_string($car, $_POST['auth_token']);
+        // $twilio_number = mysqli_real_escape_string($car, $_POST['twilio_number']);
+        // $auth_key = mysqli_real_escape_string($car, $_POST['auth_key']);
+        // $otp_id = mysqli_real_escape_string($car, $_POST['otp_id']);
+        // $show_add_car = mysqli_real_escape_string($car, $_POST['show_add_car']);
     
         // Handle file upload
         $url = "";
