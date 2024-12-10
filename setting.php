@@ -138,7 +138,7 @@ require 'inc/Header.php';
 
 
 
-                    <!-- <div class="form-group mb-3 col-3">
+                    <div class="form-group mb-3 col-3">
                     <label><span class="text-danger">*</span> Show Car Add Button ?</label>
                     <select class="form-control" name="show_add_car">
                         <option value="">Select A Option</option>
@@ -214,7 +214,7 @@ require 'inc/Header.php';
                                             } ?>>No</option>
 
                       </select>
-                    </div> -->
+                    </div>
 
 
 
