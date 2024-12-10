@@ -625,7 +625,6 @@ if (isset($_POST["type"])) {
         }
     } elseif ($_POST['type'] == 'edit_setting') {
 
-        header('Content-Type: application/json');
         file_put_contents('debug.log', "POST Data:\n" . print_r($_POST, true), FILE_APPEND);
         file_put_contents('debug.log', "FILES Data:\n" . print_r($_FILES, true), FILE_APPEND);
         
