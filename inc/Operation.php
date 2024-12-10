@@ -624,6 +624,13 @@ if (isset($_POST["type"])) {
             $returnArr = ["ResponseCode" => "200", "Result" => "true", "title" => "Profile Update Successfully!!", "message" => "Profile  section!", "action" => "profile.php"];
         }
     } elseif ($_POST['type'] == 'edit_setting') {
+
+        echo '<pre>';
+        print_r($_POST);
+        print_r($_FILES);
+        echo '</pre>';
+        exit;
+
         // Validate and sanitize inputs
         $webname = mysqli_real_escape_string($car, $_POST['webname']);
         $timezone = mysqli_real_escape_string($car, $_POST['timezone']);
@@ -637,14 +644,14 @@ if (isset($_POST["type"])) {
         $rcredit = intval($_POST['rcredit']);
         $wlimit = intval($_POST['wlimit']);
         $id = intval($_POST['id']);
-        // $sms_type = mysqli_real_escape_string($car, $_POST['sms_type']);
-        // $otp_auth = mysqli_real_escape_string($car, $_POST['otp_auth']);
-        // $acc_id = mysqli_real_escape_string($car, $_POST['acc_id']);
-        // $auth_token = mysqli_real_escape_string($car, $_POST['auth_token']);
-        // $twilio_number = mysqli_real_escape_string($car, $_POST['twilio_number']);
-        // $auth_key = mysqli_real_escape_string($car, $_POST['auth_key']);
-        // $otp_id = mysqli_real_escape_string($car, $_POST['otp_id']);
-        // $show_add_car = intval($car, $_POST['show_add_car']);
+        $sms_type = mysqli_real_escape_string($car, $_POST['sms_type']);
+        $otp_auth = mysqli_real_escape_string($car, $_POST['otp_auth']);
+        $acc_id = mysqli_real_escape_string($car, $_POST['acc_id']);
+        $auth_token = mysqli_real_escape_string($car, $_POST['auth_token']);
+        $twilio_number = mysqli_real_escape_string($car, $_POST['twilio_number']);
+        $auth_key = mysqli_real_escape_string($car, $_POST['auth_key']);
+        $otp_id = mysqli_real_escape_string($car, $_POST['otp_id']);
+        $show_add_car = intval($car, $_POST['show_add_car']);
     
         // Handle file upload
         $url = "";
@@ -671,25 +678,27 @@ if (isset($_POST["type"])) {
         // Build field array
         $field = [
             'timezone' => $timezone,
+            'weblogo' => $url,
             'webname' => $webname,
             'currency' => $currency,
-            'tax' => $tax,
-            'contact_no' => $contact_no,
             'one_key' => $one_key,
             'one_hash' => $one_hash,
-            'commission_rate' => $commission_rate,
             'scredit' => $scredit,
             'rcredit' => $rcredit,
+            'tax' => $tax,
+            'contact_no' => $contact_no,
+            'commission_rate' => $commission_rate,
             'wlimit' => $wlimit,
-            // 'sms_type' => $sms_type,
-            // 'otp_auth' => $otp_auth,
-            // 'acc_id' => $acc_id,
-            // 'auth_token' => $auth_token,
-            // 'twilio_number' => $twilio_number,
-            // 'auth_key' => $auth_key,
-            // 'otp_id' => $otp_id,
-            // 'show_add_car' => $show_add_car,
+            'sms_type' => $sms_type,
+            'otp_auth' => $otp_auth,
+            'acc_id' => $acc_id,
+            'auth_token' => $auth_token,
+            'twilio_number' => $twilio_number,
+            'auth_key' => $auth_key,
+            'otp_id' => $otp_id,
+            'show_add_car' => ($show_add_car == 'Yes') ? 1 : 0
         ];
+        
     
         // Add logo if uploaded
         if (!empty($url)) {
