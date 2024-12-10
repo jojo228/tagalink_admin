@@ -663,7 +663,6 @@ if (isset($_POST["type"])) {
                     "title" => "File Upload Failed!",
                     "message" => "Unable to upload the file. Please check directory permissions.",
                 ];
-                echo json_encode($returnArr);
                 exit;
             }
         }
@@ -702,7 +701,7 @@ if (isset($_POST["type"])) {
         $h = new Demand($car);
         $check = $h->carupdateData($field, $table, $where);
     
-        if ($check) {
+        if ($check == 1) {
             $returnArr = [
                 "ResponseCode" => "200",
                 "Result" => "true",
@@ -719,7 +718,6 @@ if (isset($_POST["type"])) {
             ];
         }
     
-        echo json_encode($returnArr);
     }
      elseif ($_POST["type"] == "add_city") {
         $okey = $_POST["status"];
