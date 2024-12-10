@@ -680,7 +680,7 @@ if (isset($_POST["type"])) {
             'scredit' => $scredit,
             'rcredit' => $rcredit,
             'wlimit' => $wlimit,
-            // 'sms_type' => $sms_type,
+            'sms_type' => $sms_type,
             // 'otp_auth' => $otp_auth,
             // 'acc_id' => $acc_id,
             // 'auth_token' => $auth_token,
