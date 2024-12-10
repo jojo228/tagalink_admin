@@ -625,10 +625,11 @@ if (isset($_POST["type"])) {
         }
     } elseif ($_POST['type'] == 'edit_setting') {
 
-        echo '<pre>';
-        print_r($_POST);
-        print_r($_FILES);
-        echo '</pre>';
+        header('Content-Type: application/json');
+        echo json_encode([
+            'post_data' => $_POST,
+            'files_data' => $_FILES
+        ]);
         exit;
 
         // Validate and sanitize inputs
