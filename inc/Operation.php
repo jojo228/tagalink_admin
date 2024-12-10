@@ -643,7 +643,7 @@ if (isset($_POST["type"])) {
         $twilio_number = $_POST['twilio_number'];
         $auth_key = $_POST['auth_key'];
         $otp_id = $_POST['otp_id'];
-        $otp_id = $_POST['show_add_car'];
+        $show_add_car = $_POST['show_add_car'];
 
         $target_dir = dirname(dirname(__FILE__)) . "/images/website/";
         $url = "images/website/";
