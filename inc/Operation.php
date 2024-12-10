@@ -655,7 +655,7 @@ if (isset($_POST["type"])) {
 
             move_uploaded_file($_FILES["weblogo"]["tmp_name"], $target_file);
             $table = "tbl_setting";
-            $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit,];
+            $field = ['timezone' => $timezone, 'weblogo' => $url, 'webname' => $webname, 'currency' => $currency, 'one_key' => $one_key, 'one_hash' => $one_hash, 'scredit' => $scredit, 'rcredit' => $rcredit, 'tax' => $tax, 'contact_no' => $contact_no, 'commission_rate' => $commission_rate, 'wlimit' => $wlimit, 'show_add_car' => $show_add_car];
             $where = "where id=" . $id . "";
             $h = new Demand($car);
             $check = $h->carupdateData($field, $table, $where);
