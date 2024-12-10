@@ -138,15 +138,15 @@ require 'inc/Header.php';
 
 
 
-                    <div class="form-group mb-3 col-3">
-                                            <label><span class="text-danger">*</span> Show Car Add Button ?</label>
-                                           <select class="form-control" name="show_add_car">
-                                               <option value="">Select A Option</option>
-                                               <option value="1" <?php if($set['show_add_car'] == '1'){echo 'selected';}?>>Yes</option>
-										                          <option value="0" <?php if($set['show_add_car'] == '0'){echo 'selected';}?>>No</option>
-                                               
-                                           </select>
-                                        </div> 
+                    <!-- <div class="form-group mb-3 col-3">
+                    <label><span class="text-danger">*</span> Show Car Add Button ?</label>
+                    <select class="form-control" name="show_add_car">
+                        <option value="">Select A Option</option>
+                        <option value="1" <?php if($set['show_add_car'] == '1'){echo 'selected';}?>>Yes</option>
+                      <option value="0" <?php if($set['show_add_car'] == '0'){echo 'selected';}?>>No</option>
+                        
+                    </select>
+                </div> 
 
 
                     <div class="form-group mb-3 col-4">
@@ -214,7 +214,7 @@ require 'inc/Header.php';
                                             } ?>>No</option>
 
                       </select>
-                    </div>
+                    </div> -->
 
 
 
