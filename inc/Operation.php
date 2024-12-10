@@ -844,7 +844,7 @@ if (isset($_POST["type"])) {
         $okey = $_POST["status"];
         $id = $_POST["id"];
         $target_dir = dirname(dirname(__FILE__)) . "/images/banner/";
-        $url = "images/banner/";
+        $url = "/images/banner/";
         $temp = explode(".", $_FILES["cat_img"]["name"]);
         $newfilename = round(microtime(true)) . "." . end($temp);
         $target_file = $target_dir . basename($newfilename);
