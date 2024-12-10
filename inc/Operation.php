@@ -644,7 +644,7 @@ if (isset($_POST["type"])) {
         $twilio_number = mysqli_real_escape_string($car, $_POST['twilio_number']);
         $auth_key = mysqli_real_escape_string($car, $_POST['auth_key']);
         $otp_id = mysqli_real_escape_string($car, $_POST['otp_id']);
-        $show_add_car = mysqli_real_escape_string($car, $_POST['show_add_car']);
+        $show_add_car = intval($car, $_POST['show_add_car']);
     
         // Handle file upload
         $url = "";

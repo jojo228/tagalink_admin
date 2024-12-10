@@ -142,8 +142,8 @@ require 'inc/Header.php';
                                             <label><span class="text-danger">*</span> Show Car Add Button ?</label>
                                            <select class="form-control" name="show_add_car">
                                                <option value="">Select A Option</option>
-                                               <option value="Yes" <?php if($set['show_add_car'] == 'Yes'){echo 'selected';}?>>Yes</option>
-										                          <option value="No" <?php if($set['show_add_car'] == 'No'){echo 'selected';}?>>No</option>
+                                               <option value="1" <?php if($set['show_add_car'] == '1'){echo 'selected';}?>>Yes</option>
+										                          <option value="0" <?php if($set['show_add_car'] == '0'){echo 'selected';}?>>No</option>
                                                
                                            </select>
                                         </div> 
