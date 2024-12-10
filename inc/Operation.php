@@ -626,11 +626,12 @@ if (isset($_POST["type"])) {
     } elseif ($_POST['type'] == 'edit_setting') {
 
         header('Content-Type: application/json');
-        echo json_encode([
-            'post_data' => $_POST,
-            'files_data' => $_FILES
-        ]);
-        exit;
+        file_put_contents('debug.log', "POST Data:\n" . print_r($_POST, true), FILE_APPEND);
+        file_put_contents('debug.log', "FILES Data:\n" . print_r($_FILES, true), FILE_APPEND);
+        
+        // Log to error log (optional)
+        error_log("POST Data:\n" . print_r($_POST, true));
+        error_log("FILES Data:\n" . print_r($_FILES, true));
 
         // Validate and sanitize inputs
         $webname = mysqli_real_escape_string($car, $_POST['webname']);
