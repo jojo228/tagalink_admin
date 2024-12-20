@@ -74,7 +74,7 @@ require 'inc/Header.php';
                             <div class="btn-group btn-group-sm" style="float: none;">
                               <a href="add_banner.php?id=<?php echo $row['id'];?>" class="tabledit-edit-button"
                                 style="float: none; margin: 5px;">
-                                <?xml version="1.0" encoding="UTF-8"?>
+                                
                                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                                   xmlns="http://www.w3.org/2000/svg">
                                   <rect width="30" height="30" rx="15" fill="#79F9B4" />
