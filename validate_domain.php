@@ -16,8 +16,7 @@ require 'inc/Header.php';
                   <p class="text-center">Enter Purchase Code And Enjoy!!</p>
                   <div class="form-group">
                     <label class="col-form-label">Enter Envato Purchase Code</label>
-                    <input type="text" class="form-control" id="" placeholder="Enter Envato Purchase Code" required="">
-                    <!-- <input value="2c963b64-b12c-4920-ada3-c40562651288" type="text" class="form-control" id="inputCode" placeholder="Enter Envato Purchase Code" required=""> -->
+                    <input type="text" class="form-control" id="inputCode" placeholder="Enter Envato Purchase Code" required="">
 				
                   </div>
                   
@@ -25,8 +24,7 @@ require 'inc/Header.php';
                   <div class="form-group mb-0">
                     
                     <div class="text-end mt-3">
-                      <button type="submit" class="btn btn-primary btn-block w-100" id="redirectButton">Activate Domain</button>
-                      <!-- <button class="btn btn-primary btn-block w-100" id="sub_activate">Activate Domain</button> -->
+                      <button class="btn btn-primary btn-block w-100" id="sub_activate">Activate Domain                 </button>
                     </div>
                   </div>
                  
@@ -45,9 +43,3 @@ require 'inc/Header.php';
 
 
 </html>
-
-<script>
-  document.getElementById("redirectButton").addEventListener("click", function () {
-    window.location.href = "dashboard.php";
-  });
-</script>
